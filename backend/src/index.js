@@ -20,6 +20,14 @@ app.use('/api/public', require('./routes/public'));
 // Sağlık kontrolü
 app.get('/_health', (req, res) => res.json({ durum: 'çalışıyor' }));
 
+// Frontend static dosyalar
+const path = require('path');
+const frontendPath = path.join(__dirname, '../../frontend/dist');
+app.use(express.static(frontendPath));
+app.get('*', (req, res) => {
+  res.sendFile(path.join(frontendPath, 'index.html'));
+});
+
 app.listen(PORT, () => {
   console.log(`✅ CMS Backend çalışıyor: http://localhost:${PORT}`);
 });

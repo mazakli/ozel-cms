@@ -4,6 +4,7 @@
   "description": "Özel İçerik Yönetim Sistemi - Backend",
   "main": "src/index.js",
   "scripts": {
+    "build": "cd ../frontend && npm install && npm run build",
     "start": "node src/index.js",
     "dev": "nodemon src/index.js",
     "db:migrate": "node src/db/migrate.js"
