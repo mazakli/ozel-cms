@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import api from '../api';
 import toast from 'react-hot-toast';
 
-const TURLER = ['slider', 'blog', 'sayfa', 'proje', 'anasayfa', 'hakkimizda', 'iletisim', 'duyuru', 'galeri'];
+const TURLER = ['slider', 'blog', 'duyuru', 'intro', 'sayac', 'misyon', 'cta', 'sayfa', 'proje', 'hakkimizda', 'iletisim', 'galeri'];
 
 export default function IcerikDuzenle() {
   const { id } = useParams();
