@@ -80,10 +80,11 @@ router.put('/:id', authMiddleware, async (req, res) => {
     const { rows } = await pool.query(
       `UPDATE icerikler SET baslik=$1, slug=$2, icerik=$3, ozet=$4, meta_aciklama=$5,
        gorsel_url=$6, ekstra=$7, sira=$8, durum=$9,
-       yayinlandi = CASE WHEN $9='yayinda' AND yayinlandi IS NULL THEN NOW() ELSE yayinlandi END,
-       guncellendi=NOW() WHERE id=$10 RETURNING *`,
+       yayinlandi = CASE WHEN $10 AND yayinlandi IS NULL THEN NOW() ELSE yayinlandi END,
+       guncellendi=NOW() WHERE id=$11 RETURNING *`,
       [baslik, slug, icerik, ozet, meta_aciklama, gorsel_url,
-       JSON.stringify(ekstra || {}), sira || 0, durum || 'taslak', req.params.id]
+       JSON.stringify(ekstra || {}), sira || 0, durum || 'taslak',
+       (durum || 'taslak') === 'yayinda', req.params.id]
     );
     res.json(rows[0]);
   } catch (err) {
