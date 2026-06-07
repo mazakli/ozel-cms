@@ -1,6 +1,6 @@
 [build]
-buildCommand = "cd frontend && npm install && npm run build && cd ../backend && npm install"
+buildCommand = "npm install"
 
 [deploy]
-startCommand = "cd backend && node src/index.js"
+startCommand = "npm run start"
 healthcheckPath = "/_health"
