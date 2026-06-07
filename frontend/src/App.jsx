@@ -8,6 +8,7 @@ import Markalar from './pages/Markalar';
 import Icerikler from './pages/Icerikler';
 import IcerikDuzenle from './pages/IcerikDuzenle';
 import Medya from './pages/Medya';
+import Ayarlar from './pages/Ayarlar';
 
 function KorunanRotalar() {
   const { kullanici, yukleniyor } = useAuth();
@@ -21,6 +22,7 @@ function KorunanRotalar() {
         <Route path="/icerikler" element={<Icerikler />} />
         <Route path="/icerikler/:id" element={<IcerikDuzenle />} />
         <Route path="/medya" element={<Medya />} />
+        <Route path="/ayarlar" element={<Ayarlar />} />
       </Routes>
     </Layout>
   );
