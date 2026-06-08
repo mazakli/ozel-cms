@@ -16,12 +16,6 @@ app.use('/api/icerikler', require('./routes/icerikler'));
 app.use('/api/medya', require('./routes/medya'));
 app.use('/api/ayarlar', require('./routes/ayarlar'));
 app.use('/api/public', require('./routes/public'));
-app.use('/api/sm-hesaplar', require('./routes/sm-hesaplar'));
-app.use('/api/sm-postlar', require('./routes/sm-postlar'));
-
-// Zamanlı post kontrolü (her 60 saniyede)
-const { zamanliPostlariIsle } = require('./services/paylas-yoneticisi');
-setInterval(zamanliPostlariIsle, 60 * 1000);
 
 // Sağlık kontrolü
 app.get('/_health', (req, res) => res.json({ durum: 'çalışıyor' }));

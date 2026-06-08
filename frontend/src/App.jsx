@@ -9,10 +9,6 @@ import Icerikler from './pages/Icerikler';
 import IcerikDuzenle from './pages/IcerikDuzenle';
 import Medya from './pages/Medya';
 import Ayarlar from './pages/Ayarlar';
-import SosyalMedya from './pages/SosyalMedya';
-import SosyalMedyaPost from './pages/SosyalMedyaPost';
-import SosyalMedyaHesaplar from './pages/SosyalMedyaHesaplar';
-import SosyalMedyaHighlights from './pages/SosyalMedyaHighlights';
 
 function KorunanRotalar() {
   const { kullanici, yukleniyor } = useAuth();
@@ -27,11 +23,6 @@ function KorunanRotalar() {
         <Route path="/icerikler/:id" element={<IcerikDuzenle />} />
         <Route path="/medya" element={<Medya />} />
         <Route path="/ayarlar" element={<Ayarlar />} />
-        <Route path="/sosyal-medya" element={<SosyalMedya />} />
-        <Route path="/sosyal-medya/post" element={<SosyalMedyaPost />} />
-        <Route path="/sosyal-medya/post/:id" element={<SosyalMedyaPost />} />
-        <Route path="/sosyal-medya/hesaplar" element={<SosyalMedyaHesaplar />} />
-        <Route path="/sosyal-medya/highlights" element={<SosyalMedyaHighlights />} />
       </Routes>
     </Layout>
   );
