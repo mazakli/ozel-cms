@@ -7,6 +7,12 @@ const menuler = [
   { yol: '/markalar', ikon: '🏢', etiket: 'Markalar', sadeceSuperadmin: true },
   { yol: '/icerikler', ikon: '📝', etiket: 'İçerikler' },
   { yol: '/medya', ikon: '🖼️', etiket: 'Medya Kütüphanesi' },
+  { bolum: true, etiket: 'SOSYAL MEDYA' },
+  { yol: '/sosyal-medya', ikon: '📱', etiket: 'Genel Bakış' },
+  { yol: '/sosyal-medya/post', ikon: '✏️', etiket: 'Yeni Post', alt: true },
+  { yol: '/sosyal-medya/hesaplar', ikon: '🔗', etiket: 'Hesap Bağla', alt: true },
+  { yol: '/sosyal-medya/highlights', ikon: '⭐', etiket: 'IG Highlights', alt: true },
+  { bolum: true, etiket: 'GENEL' },
   { yol: '/ayarlar', ikon: '⚙️', etiket: 'Site Ayarları' },
 ];
 
@@ -32,20 +38,30 @@ export default function Layout({ children }) {
         <nav style={styles.nav}>
           {menuler
             .filter(m => !m.sadeceSuperadmin || kullanici?.rol === 'superadmin')
-            .map(m => (
-              <Link
-                key={m.yol}
-                to={m.yol}
-                style={{
-                  ...styles.navLink,
-                  background: location.pathname === m.yol ? 'rgba(99,102,241,0.15)' : 'transparent',
-                  color: location.pathname === m.yol ? '#6366f1' : '#cbd5e1',
-                }}
-              >
-                <span style={styles.navIkon}>{m.ikon}</span>
-                {kenarCubugu && <span>{m.etiket}</span>}
-              </Link>
-            ))}
+            .map((m, i) => {
+              if (m.bolum) {
+                return kenarCubugu ? (
+                  <div key={`bolum_${i}`} style={styles.navBolum}>{m.etiket}</div>
+                ) : <div key={`bolum_${i}`} style={styles.navBolumCizgi} />;
+              }
+              const aktif = location.pathname === m.yol ||
+                (m.yol !== '/' && location.pathname.startsWith(m.yol) && m.yol.split('/').length > 1);
+              return (
+                <Link
+                  key={m.yol}
+                  to={m.yol}
+                  style={{
+                    ...styles.navLink,
+                    ...(m.alt ? styles.navLinkAlt : {}),
+                    background: aktif ? 'rgba(99,102,241,0.15)' : 'transparent',
+                    color: aktif ? '#6366f1' : m.alt ? '#94a3b8' : '#cbd5e1',
+                  }}
+                >
+                  <span style={styles.navIkon}>{m.ikon}</span>
+                  {kenarCubugu && <span>{m.etiket}</span>}
+                </Link>
+              );
+            })}
         </nav>
 
         <div style={styles.sidebarAlt}>
@@ -100,6 +116,12 @@ const styles = {
     transition: 'all 0.2s', whiteSpace: 'nowrap',
   },
   navIkon: { fontSize: 18, flexShrink: 0 },
+  navLinkAlt: { paddingLeft: 28, fontSize: 13 },
+  navBolum: {
+    fontSize: 10, fontWeight: 700, color: 'rgba(148,163,184,0.6)', letterSpacing: '0.08em',
+    padding: '12px 12px 4px', whiteSpace: 'nowrap',
+  },
+  navBolumCizgi: { borderTop: '1px solid rgba(255,255,255,0.06)', margin: '8px 4px' },
   sidebarAlt: { padding: 12, borderTop: '1px solid rgba(255,255,255,0.08)' },
   kullaniciBilgi: { display: 'flex', alignItems: 'center', gap: 10, padding: '8px 4px', marginBottom: 8 },
   avatar: {
